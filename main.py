@@ -47,22 +47,25 @@ except:
 print("\t-> Done\n")
 
 
-############################
-# STEP 2: TFIDF on sentences
-############################
+#############################
+# STEP 2: sentences embedding
+#############################
 
-
-"""from sklearn.feature_extraction.text import CountVectorizer
-vectorizer = CountVectorizer()
-X_BOW = vectorizer.fit_transform(X_train['designation'])
-print(X_BOW.todense().shape)
-print(vectorizer.get_feature_names()[:100])
-
+"""from sklearn import model_selection, preprocessing, linear_model, naive_bayes, metrics
+from sklearn import ensemble
 from sklearn.feature_extraction.text import TfidfVectorizer
-tfidf = TfidfVectorizer()
-X_tfidf = tfidf.fit_transform(X_train['designation'])
-print(X_tfidf.todense().shape)
-print(tfidf.get_feature_names()[:100])
+from sklearn.feature_extraction.text import CountVectorizer
 
-from sklearn import model_selection, preprocessing,linear_model, naive_bayes, metrics
-from sklearn import ensemble"""
+bow = CountVectorizer()
+tfidf = TfidfVectorizer()
+
+X_bow = bow.fit_transform(X_train['designation'])
+X_tfidf = tfidf.fit_transform(X_train['designation'])
+
+
+train_x, valid_x, train_y, valid_y = model_selection.train_test_split(
+    X_tfidf, Y_train['prdtypecode'])
+encoder = preprocessing.LabelEncoder()
+train_y = encoder.fit_transform(train_y)
+valid_y = encoder.fit_transform(valid_y)
+"""
