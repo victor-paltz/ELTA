@@ -9,6 +9,7 @@ from nltk.tokenize import RegexpTokenizer
 
 spacy_nlp = spacy.load('fr_core_news_sm')
 nltk.download('wordnet')
+nltk.download('stopwords')
 lemmatizer = WordNetLemmatizer()
 stemmer = PorterStemmer()
 tokenizer = RegexpTokenizer(r'[a-z]\w+')
@@ -23,23 +24,19 @@ def raw_to_tokens(raw_string):
     string = remove_punctuation(string)
     tokens = tokenizer.tokenize(string)
     tokens = remove_stopwords(tokens)
-    tokens = word_lemmeatizer(tokens)
+    #tokens = word_lemmeatizer(tokens)
     cleaned_text = word_stemmer(tokens)
     return cleaned_text
 
 
 def remove_punctuation(text):
-    no_punct = ''.join([c for c in text if c not in string.punctuation])
-    no_punct = no_punct.replace('0', ' ')
-    no_punct = no_punct.replace('1', ' ')
-    no_punct = no_punct.replace('2', ' ')
-    no_punct = no_punct.replace('3', ' ')
-    no_punct = no_punct.replace('4', ' ')
-    no_punct = no_punct.replace('5', ' ')
-    no_punct = no_punct.replace('6', ' ')
-    no_punct = no_punct.replace('7', ' ')
-    no_punct = no_punct.replace('8', ' ')
-    no_punct = no_punct.replace('9', ' ')
+
+    no_punct = ''.join(
+        [c if c not in string.punctuation else " " for c in text])
+
+    for i in range(10):
+        no_punct = no_punct.replace(str(i), ' ')
+
     return no_punct
 
 
