@@ -32,17 +32,17 @@ def raw_to_tokens(raw_string):
 
 def remove_punctuation(text):
 
-    no_punct = ''.join(
+    no_punct = "".join(
         [c if c not in string.punctuation else " " for c in text])
 
     for i in range(10):
-        no_punct = no_punct.replace(str(i), ' ')
+        no_punct = no_punct.replace(str(i), " ")
 
     return no_punct
 
 
 def remove_stopwords(words):
-    no_stop_word = [c for c in words if c not in stopwords.words('french')]
+    no_stop_word = [c for c in words if c not in stopwords.words("french")]
     return no_stop_word
 
 
@@ -52,7 +52,7 @@ def word_lemmeatizer(words):
 
 
 def word_stemmer(words):
-    stem_text = ' '.join([stemmer.stem(word) for word in words])
+    stem_text = " ".join([stemmer.stem(word) for word in words])
     return stem_text
 
 
@@ -71,7 +71,7 @@ def remove_unfrequent_words(X_train, min_occurrence=10):
         return " ".join([word for word in text.split()
                          if word not in unfrequent_words])
 
-    X_train['designation'] = [update_sentence(text)
-                              for text in X_train['designation']]
+    X_train["designation"] = [update_sentence(text)
+                              for text in X_train["designation"]]
 
     return X_train

@@ -17,7 +17,7 @@ def preprocess(X, Y):
     X = remove_unfrequent_words(X)
 
     # keep only not empty sentences
-    mask = X['designation'].apply(len) > 0
+    mask = X["designation"].apply(len) > 0
     X = X[mask]
     Y = Y[mask]
 
