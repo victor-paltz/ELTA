@@ -7,9 +7,11 @@ Group Members:
     (3) Paltz Victor
 
 """
+import time
+
 import numpy as np
 import xgboost
-from sklearn import ensemble, linear_model, metrics, naive_bayes
+from sklearn import ensemble, linear_model, metrics, naive_bayes, tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 
@@ -21,8 +23,8 @@ def model_random_forest(X_train, y_train, X_test, y_test):
     @param: X_test - a numpy matrix containing features for test data (e.g. TF-IDF matrix)
     @param: y_test - a numpy array containing labels for each test sample
     """
-    clf = RandomForestClassifier(min_samples_split=3,
-                                 n_estimators=200,
+    clf = RandomForestClassifier(min_samples_split=2,
+                                 n_estimators=1000,
                                  max_depth=None)
     clf.fit(X_train, y_train)
 
@@ -75,7 +77,7 @@ def model_GradientBoosting(X_train, y_train, X_test, y_test):
     @param: y_test - a numpy array containing labels for each test sample
     """
     clf = ensemble.GradientBoostingClassifier(
-        n_estimators=150, learning_rate=0.2, max_depth=3)
+        n_estimators=1000, learning_rate=0.2, max_depth=3)
     clf.fit(X_train, y_train)
 
     y_predicted = clf.predict(X_test)
@@ -92,7 +94,9 @@ def model_AdaBoost(X_train, y_train, X_test, y_test):
     @param: X_test - a numpy matrix containing features for test data (e.g. TF-IDF matrix)
     @param: y_test - a numpy array containing labels for each test sample
     """
-    clf = ensemble.AdaBoostClassifier(n_estimators=200)
+    clf = ensemble.AdaBoostClassifier(base_estimator=tree.DecisionTreeClassifier(max_depth=2),
+                                      learning_rate=.1,
+                                      n_estimators=2000)
     clf.fit(X_train, y_train)
 
     y_predicted = clf.predict(X_test)
@@ -140,9 +144,11 @@ def run_analysis(X_train, y_train, X_test, y_test):
 
     for run_model, model_name in zip(model_functions_list, model_names):
         print("Evaluating model", model_name, ":")
+        begining = time.perf_counter()
         accuracy, weighted_f1 = run_model(X_train, y_train, X_test, y_test)
-        print(" -> Weighted F1 score:", weighted_f1)
-        print(" -> Accuracy score:", accuracy)
+        print(f" -> Weighted F1 score: {weighted_f1:.3f}")
+        print(f" -> Accuracy score: {accuracy:.3f}")
+        print(f" -> training time: {time.perf_counter()-begining:.1f} seconds")
 
 
 if __name__ == "__main__":
