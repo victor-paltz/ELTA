@@ -7,7 +7,7 @@ This challenge focuses on the topic of large-scale product type code multimodal 
 
 Contributors:
 - Chu Haotian
-- Depdeep Roy
+- Debdeep Roy
 - Victor Paltz
 
 
