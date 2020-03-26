@@ -1,4 +1,4 @@
-from cleaning_functions import raw_to_tokens
+from preprocessing.cleaning_functions import raw_to_tokens
 
 test_sentences = [("il fait beau, l'etang est bleu", "fait beau etang bleu")]
 

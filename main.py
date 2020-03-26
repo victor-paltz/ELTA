@@ -3,7 +3,8 @@ import os
 
 import pandas as pd
 
-from preprocessing import preprocess
+from preprocessing.preprocessing import preprocess, get_datasets_for_training
+from code_to_submit import run_analysis
 
 
 DATASET_FOLDER = "data"
@@ -51,21 +52,27 @@ print("\t-> Done\n")
 # STEP 2: sentences embedding
 #############################
 
-"""from sklearn import model_selection, preprocessing, linear_model, naive_bayes, metrics
-from sklearn import ensemble
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
+print("STEP 2: Preparing data for training...")
 
-bow = CountVectorizer()
-tfidf = TfidfVectorizer()
+train_x, valid_x, train_y, valid_y = get_datasets_for_training(
+    X_train['designation'], Y_train['prdtypecode'], "tfidf")
 
-X_bow = bow.fit_transform(X_train['designation'])
-X_tfidf = tfidf.fit_transform(X_train['designation'])
+print("\t-> Done\n")
 
+#############################
+# STEP 3: Finding best hyper-parameters
+#############################
 
-train_x, valid_x, train_y, valid_y = model_selection.train_test_split(
-    X_tfidf, Y_train['prdtypecode'])
-encoder = preprocessing.LabelEncoder()
-train_y = encoder.fit_transform(train_y)
-valid_y = encoder.fit_transform(valid_y)
-"""
+print("STEP 3: Finding best hyper-parameters...")
+print("\t-> Parameters hardcoded already")
+print("\t-> Done\n")
+
+#########################
+# STEP 4: Printing scores
+#########################
+
+print("STEP 4: Printing scores...")
+
+run_analysis(train_x, train_y, valid_x, valid_y)
+
+print("\t-> Done\n")

@@ -19,7 +19,13 @@ Our code is written in Python 3.7.
 
 First, you should create a folder "data" at the root of the repository, then, put the files "X_train_update.csv" and "Y_train_CVw08PX.csv" inside.
 
-Finally, open the models.ipynb file with jupyter notebook and run it.
+Finally, run the main.py file.
+
+```bash
+python3 main.py
+```
+
+It is also possible to open the models.ipynb file with jupyter notebook and to run it.
 
 ## Files
 
