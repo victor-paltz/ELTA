@@ -88,3 +88,31 @@ def finetune_AdaBoost(train_x, train_y, valid_x, valid_y):
     print(grid_search.best_params_)
 
     return grid_search.best_params_
+
+
+def finetune_RandomForestClassifier(train_x, train_y, valid_x, valid_y):
+
+    print("Grid search on RandomForest classifier")
+
+    clf = ensemble.RandomForestClassifier()
+
+    param_grid = {
+        'min_samples_split': [3, 5],
+        'n_estimators': [100, 300],
+        'max_depth': [3, 5, 15],
+        'max_features': [3, 5]
+    }
+
+    skf = StratifiedKFold(n_splits=5)
+    grid_search = GridSearchCV(clf, param_grid, scoring="f1_weighted",
+                               cv=skf, return_train_score=True)
+
+    grid_search.fit(train_x, train_y)
+
+    # make the predictions
+    y_pred = grid_search.predict(valid_x)
+    weighted_f1 = metrics.f1_score(valid_y, y_pred, average='weighted')
+    print(" -> Weighted F1 score:", weighted_f1)
+
+    print('Best params:')
+    print(grid_search.best_params_)
