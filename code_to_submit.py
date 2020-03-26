@@ -21,7 +21,9 @@ def model_random_forest(X_train, y_train, X_test, y_test):
     @param: X_test - a numpy matrix containing features for test data (e.g. TF-IDF matrix)
     @param: y_test - a numpy array containing labels for each test sample
     """
-    clf = RandomForestClassifier()
+    clf = RandomForestClassifier(min_samples_split=3,
+                                 n_estimators=200,
+                                 max_depth=None)
     clf.fit(X_train, y_train)
 
     y_predicted = clf.predict(X_test)
@@ -73,7 +75,7 @@ def model_GradientBoosting(X_train, y_train, X_test, y_test):
     @param: y_test - a numpy array containing labels for each test sample
     """
     clf = ensemble.GradientBoostingClassifier(
-        n_estimators=100, learning_rate=1.0, max_depth=1)
+        n_estimators=150, learning_rate=0.2, max_depth=3)
     clf.fit(X_train, y_train)
 
     y_predicted = clf.predict(X_test)
@@ -90,7 +92,7 @@ def model_AdaBoost(X_train, y_train, X_test, y_test):
     @param: X_test - a numpy matrix containing features for test data (e.g. TF-IDF matrix)
     @param: y_test - a numpy array containing labels for each test sample
     """
-    clf = ensemble.AdaBoostClassifier(n_estimators=100)
+    clf = ensemble.AdaBoostClassifier(n_estimators=200)
     clf.fit(X_train, y_train)
 
     y_predicted = clf.predict(X_test)
