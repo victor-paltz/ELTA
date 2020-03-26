@@ -65,11 +65,11 @@ def finetune_AdaBoost(train_x, train_y, valid_x, valid_y):
 
     print("Grid search on AdaBoost classifier")
 
-    clf = ensemble.AdaBoostClassifier(n_estimators=100)
+    clf = ensemble.AdaBoostClassifier()
 
     param_grid = {
-        "learning_rate": [.1, 1, 5],
-        "n_estimators": [20, 50, 100, 300]
+        "n_estimators": [50, 100, 200, 400],
+        "learning_rate": [1, .1]
     }
 
     skf = StratifiedKFold(n_splits=5)
@@ -97,10 +97,35 @@ def finetune_RandomForestClassifier(train_x, train_y, valid_x, valid_y):
     clf = ensemble.RandomForestClassifier()
 
     param_grid = {
-        'min_samples_split': [3, 5],
-        'n_estimators': [100, 300],
-        'max_depth': [3, 5, 15],
-        'max_features': [3, 5]
+        'min_samples_split': [2, 3, 5],
+        'n_estimators': [50, 100, 200, 500]
+    }
+
+    skf = StratifiedKFold(n_splits=5)
+    grid_search = GridSearchCV(clf, param_grid, scoring="f1_weighted",
+                               cv=skf, return_train_score=True)
+
+    grid_search.fit(train_x, train_y)
+
+    # make the predictions
+    y_pred = grid_search.predict(valid_x)
+    weighted_f1 = metrics.f1_score(valid_y, y_pred, average='weighted')
+    print(" -> Weighted F1 score:", weighted_f1)
+
+    print('Best params:')
+    print(grid_search.best_params_)
+
+
+def finetune_GradientBoostingClassifier(train_x, train_y, valid_x, valid_y):
+
+    print("Grid search on GradientBoosting classifier")
+
+    clf = ensemble.GradientBoostingClassifier()
+
+    param_grid = {
+        "n_estimators": [50, 100, 200, 400],
+        "max_depth": [3, 4],
+        "learning_rate": [.1, .05]
     }
 
     skf = StratifiedKFold(n_splits=5)
