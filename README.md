@@ -31,8 +31,23 @@ It is also possible to open the models.ipynb file with jupyter notebook and to r
 
 TODO when the project if finished
 ```
-├── ...  
-├── ...
+├── code_to_submit.py           -> Script file evaluated by the teachers
+├── data                        -> Contains the files X_train_update.csv and Y_train_CVw08PX
+│   ├── X_train_update.csv      -> You should add this file
+│   ├── Y_train_CVw08PX.csv     -> You should add that file
+├── debuging                    -> Folder that contains debuging tools
+│   └── info_decorator.py       -> Decorator to print information about execution time and debuging
+├── main.py                     -> File to launch in order to run the whole pipeline
+├── models.ipynb                -> Notebook that does the same as main.py + hyperparameter fine-tuning
+├── preprocessing
+│   ├── __init__.py
+│   ├── cleaning_functions.py
+│   ├── preprocessing.py
+│   └── test_cleaning.py
+├── requirements.txt
+└── training
+    └── test_models.py
+
 ```
 
 ## Tests
