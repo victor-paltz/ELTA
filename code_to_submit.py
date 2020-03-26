@@ -24,7 +24,7 @@ def model_random_forest(X_train, y_train, X_test, y_test):
     @param: y_test - a numpy array containing labels for each test sample
     """
     clf = RandomForestClassifier(min_samples_split=2,
-                                 n_estimators=1000,
+                                 n_estimators=500,
                                  max_depth=None)
     clf.fit(X_train, y_train)
 
